@@ -1,8 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "..";
 
 const Filter = () => {
   const { setCategory } = useContext(AppContext);
+  // const { setCategory, categoryOptions, setCategoryOptions } = useContext(AppContext);
+
+  // fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=2b61576c6129138ce5beeb3937518565&language=en-US')
+  //   .then(res => res.json())
+  //   .then(data => setCategoryOptions(data.genres.map(el => <option key={el.id} value={el.id}>{el.name}</option>)));
+
   
   // Changing the category
   const handleChange = (e) => {
@@ -15,7 +21,8 @@ const Filter = () => {
   // With the api we can make this list dynamic by fetching all the categories
   return (
       <select name="category" id="category" onChange={(e) => handleChange(e)}>
-       <option value="popular">Popular</option>
+        <option value="popular">Popular</option>
+        {/* {categoryOptions} */}
         <option value="28">Action</option>
         <option value="18">Drama</option>
         <option value="12">Adventure</option>
