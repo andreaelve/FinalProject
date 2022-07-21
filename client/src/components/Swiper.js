@@ -4,9 +4,12 @@ import Movie from "./Movie";
 import Filter from "./Filter";
 import LikeButton from "./LikeButton";
 import DislikeButton from "./DislikeButton";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 function Swiper() {
   const { category, setCategory, movie, setMovie, movies, setMovies, counter, setCounter } = useContext(AppContext);
+  const { user } = useAuth0();
 
   // Defaults to popular movies
   const setUp = () => {
@@ -18,7 +21,23 @@ function Swiper() {
     });
   }
 
+ 
+  useEffect(() => {
+    fetch('http://localhost:3001/register', {  
+      method: 'POST', 
+      mode: 'cors', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        user: user.email
+        }) 
+    })
+  }, []);
+
   // Changes category of films
+
+
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${category}&api_key=2b61576c6129138ce5beeb3937518565&language=en-US`)
       .then(res => res.json())

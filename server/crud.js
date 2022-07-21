@@ -4,31 +4,31 @@ import { MongoClient } from 'mongodb';
 const PASSWORD = '1234SALT';
 const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
 
-async function main() {
-    const client = new MongoClient(uri);
-    try {
-        await client.connect();
-        await createListing(client,
-          {
-            user: "nikola.lukic@appliedtechnology.se",
-            liked_movies: [
-            ],
-            disliked_movies: [
+// async function main() {
+//     const client = new MongoClient(uri);
+//     try {
+//         await client.connect();
+//         await createListing(client,
+//           {
+//             user: "nikola.lukic@appliedtechnology.se",
+//             liked_movies: [
+//             ],
+//             disliked_movies: [
 
-            ]
-          }
-        )
-    } finally {
-        await client.close();
-    }
-}
+//             ]
+//           }
+//         )
+//     } finally {
+//         await client.close();
+//     }
+// }
 
-main().catch(console.error);
+// main().catch(console.error);
 
-async function createListing(client, newListing){
-  const result = await client.db("movies_db").collection("movie_collection").insertOne(newListing);
-  console.log(`Added a new movie for user ${newListing.user} to the database!`);
-}
+// async function createListing(client, newListing){
+//   const result = await client.db("movies_db").collection("movie_collection").insertOne(newListing);
+//   console.log(`Added a new movie for user ${newListing.user} to the database!`);
+// }
 
 const addMovie = () => {
   MongoClient.connect(uri, function(err, db) {
@@ -50,5 +50,7 @@ const addMovie = () => {
   });
   });
 }
+
+
 
 // addMovie();
