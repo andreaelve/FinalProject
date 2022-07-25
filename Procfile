@@ -1,1 +1,1 @@
-web: ./setup.sh && npm run start
+web: npm run start

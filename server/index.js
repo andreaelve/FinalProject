@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import path, { dirname } from "path";
 import { fileURLToPath } from 'url';
 const PASSWORD = '1234SALT';
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
