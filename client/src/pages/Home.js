@@ -73,7 +73,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
     return (
       <div className="option">
         <select name="category" id="category" onChange={(e) => handleChange(e)}>
-         <option value="popular">Popular</option>
+          <option value="popular">Popular</option>
           <option value="28">Action</option>
           <option value="18">Drama</option>
           <option value="12">Adventure</option>
