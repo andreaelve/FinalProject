@@ -19,10 +19,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../client', 'build/index.html'));
-});
-
 app.get('/movie', async (req, res) => {
   const url = "https://api.themoviedb.org/3/discover/movie?with_genres=18&api_key=2b61576c6129138ce5beeb3937518565&language=en-US";
   const option= {
@@ -116,6 +112,10 @@ app.post('/register', async (req, res) => {
 //     });
 //   });
 // })
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../client', 'build/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
