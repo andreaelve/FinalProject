@@ -1,2 +1,2 @@
-web: cd ./client && npm run build
-server: node server/index.js
+build: cd ./client && npm run build
+web: node server/index.js
