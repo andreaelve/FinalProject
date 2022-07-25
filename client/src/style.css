@@ -146,7 +146,7 @@ body {
   transition: visibility 3s linear 300ms, opacity 300ms;
   text-align: center;
   backdrop-filter: blur(17px) brightness(60%);
-  z-index: -1;
+  z-index: 0;
   position: relative;
 }
 

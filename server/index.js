@@ -3,16 +3,21 @@ import cors from 'cors';
 import fetch from'node-fetch';
 import { MongoClient } from 'mongodb';
 import bodyParser from 'body-parser';
+import path from "path";
+import { fileURLToPath } from 'url';
 const PASSWORD = '1234SALT';
 const PORT = process.env.PORT || 3001;
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+app.use(express.static(path.join(__dirname, "../client", "build")));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 app.get('/movie', async (req, res) => {
   const url = "https://api.themoviedb.org/3/discover/movie?with_genres=18&api_key=2b61576c6129138ce5beeb3937518565&language=en-US";
