@@ -20,10 +20,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/',  async (req, res) => {
-  res.send('hello people')
-})
-
 app.get('/movie', async (req, res) => {
   const url = "https://api.themoviedb.org/3/discover/movie?with_genres=18&api_key=2b61576c6129138ce5beeb3937518565&language=en-US";
   const option= {
