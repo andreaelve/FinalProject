@@ -20,5 +20,6 @@
     "node-fetch": "^3.2.8",
     "nodemon": "^2.0.19",
     "serve": "^14.0.1"
-  }
+  },
+  "homepage": "https://pickflicks.herokuapp.com/"
 }

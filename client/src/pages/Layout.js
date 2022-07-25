@@ -13,30 +13,14 @@ const Layout = () => {
 
   return (
     <>
-      {/* <nav className="navbar">
-        <ul>
-          <li>
-            <Link to="/profile"><img src={user.picture} alt="profile image" className="profile_link"/></Link>
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/likedmovies">My Movies</Link>
-          </li>
-          <li>
-            <Link to="/match">Match</Link>
-          </li>
-        </ul>
-      </nav> */}
-      <nav class="navbar">
-          <div class="container nav-container">
+      <nav className="navbar">
+          <div className="container nav-container">
               <Link to="/profile" className="profile_link"><img src={user.picture} alt="profile image" className="profile_img"/></Link>
-              <input ref={checkbox} class="checkbox" type="checkbox" name="" id="" />
-              <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
+              <input ref={checkbox} className="checkbox" type="checkbox" name="" id="" />
+              <div className="hamburger-lines">
+                <span className="line line1"></span>
+                <span className="line line2"></span>
+                <span className="line line3"></span>
               </div>  
             <div class="menu-items">
               <Link onClick={() => handleClick()} to="/" className="menu_link">Home</Link>
