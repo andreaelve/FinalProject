@@ -4,7 +4,6 @@ import { Button } from 'primereact/button';
 import ButtonLogin from './ButtonLogin';
 
 const Login = () => {
-  const { loginWithRedirect } = useAuth0();
 
   return (
     <div className="login">

@@ -164,12 +164,13 @@ p{
   margin: 0 auto;
   margin-top: 0;
 }
+
 h3{
   color:#6E83CF;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
-
 }
+
 h2{
   color:#EAECFF;
 
@@ -178,15 +179,15 @@ h4{
   color:#EAECFF;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-
 }
 .option{
   margin-top: 1rem;
   /* margin-bottom: rem; */
   display: flex;
   justify-content: center;
-  
+  cursor: pointer;
 }
+
 .moveList{
   margin-top: 3rem;
 }
@@ -196,6 +197,7 @@ h4{
   padding: 10px;
   /* margin-top: 0.5rem; */
 }
+
 .profile{
   text-align: center;
   margin-top: 8rem;
