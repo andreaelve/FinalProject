@@ -10,7 +10,8 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const [ counter, setCounter ] = useState(0);
   const [ movies, setMovies ] = useState([]);
   const [ movie, setMovie ] = useState(movies[counter]);
-  const info = useRef(null)
+  const info = useRef(null);
+  const infoContent = useRef(null);
   const image = useRef(null);
 
   useEffect(() => {
@@ -118,6 +119,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const Movie = () => {
     const visibilityChange = (e) => {
       if(e.target === image.current){
+        infoContent.current.className = infoContent.current.className === "none" ?  "" :  "none";
         info.current.className = info.current.className === "movie__description hidden" ?  "movie__description visible" :  "movie__description hidden";
       }
     }
@@ -145,10 +147,12 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
           {/* <img ref={image} src={"https://image.tmdb.org/t/p/w500/"+movie.poster_path} alt={movie.title} onClick={() => visibilityChange()} className="card-img" /> */}
         </div>
         <div ref={info} className="movie__description hidden">
-          <h2 className="movie-title">{movie.title}</h2>
-          <span className="movie-releasedate">Release Date: {movie.release_date}</span>
-          <p>{movie.overview}</p>
-          <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
+          <div ref={infoContent} className="none">
+            <h2 className="movie-title">{movie.title}</h2>
+            <span className="movie-releasedate">Release Date: {movie.release_date}</span>
+            <p>{movie.overview}</p>
+            <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
+          </div>
         </div>
       </div>
     );

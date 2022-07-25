@@ -250,17 +250,22 @@ body {
 .hidden {
   transition: display 4000ms;
   opacity: 0;
-  display: none;
+  width: 100vw;
   transform: translateY(0);
   transition: transform 0.5s, opacity 200ms;
 }
 
 .visible {
   /* transform: translateY(-130px); */
+  width: 100vw;
   height: 125%;
   transform: translateY(-90px);
   opacity: 1;
   transition: transform 0.5s, opacity 200ms;
+}
+
+.none {
+  display: none;
 }
 
 .movie-card_main {
@@ -274,7 +279,7 @@ body {
   margin-bottom: 0;
 }
 
-.movie__description > * {
+.movie__description * {
   margin: 0.5em 0;
   color: black;
 }
