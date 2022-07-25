@@ -3,13 +3,14 @@ import cors from 'cors';
 import fetch from'node-fetch';
 import { MongoClient } from 'mongodb';
 import bodyParser from 'body-parser';
-import path from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from 'url';
 const PASSWORD = '1234SALT';
 const PORT = process.env.PORT || 3001;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+console.log(__dirname)
 
 app.use(express.static(path.join(__dirname, "../client", "build")));
 app.use(express.static("public"));
