@@ -1,1 +1,1 @@
-web: npm run postdeploy && npm run start
+web: ./setup.sh && npm run start
