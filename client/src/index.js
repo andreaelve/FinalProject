@@ -6,11 +6,11 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import LikedMovies from "./pages/LikedMovies";
+import DislikedMovies from "./pages/DislikedMovies";
 import Login from "./pages/Login";
 import { useEffect, useState } from "react";
 import Match from "./pages/Match";
-// import "./App.css"
-import './style.css';
+import "./App.css"
 
 export default function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -21,12 +21,12 @@ export default function App() {
     if(isAuthenticated){
       fetch('http://localhost:3001/storedLists', {  
         method: 'POST', 
-        // mode: 'cors', 
+        mode: 'cors', 
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
-          email: user.email,
+          user: user.email,
         }) 
       })
       .then(res => res.json())
@@ -55,7 +55,8 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="match" element={<Match likedMovies={likedMovies} />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="likedmovies" element={<LikedMovies likedMovies={likedMovies} setLikedMovies={setDislikedMovies} />} />
+          <Route path="likedmovies" element={<LikedMovies likedMovies={likedMovies} setDislikedMovies={setDislikedMovies} setLikedMovies={setLikedMovies} />} />
+          <Route path="dislikedmovies" element={<DislikedMovies dislikedMovies={dislikedMovies} setDislikedMovies={setDislikedMovies} setLikedMovies={setLikedMovies} />} />
         </Route>
       </Routes>
     </BrowserRouter>

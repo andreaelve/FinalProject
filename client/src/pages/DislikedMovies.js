@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import "../App.css"
 
 
-const LikedMovies = ({ likedMovies, setLikedMovies, setDislikedMovies }) => {
+const DislikedMovies = ({ dislikedMovies, setLikedMovies, setDislikedMovies }) => {
   // TODO: Delete list button ?? 
   const { user } = useAuth0();
   
@@ -12,7 +12,7 @@ const LikedMovies = ({ likedMovies, setLikedMovies, setDislikedMovies }) => {
       e.preventDefault();
 
       /**
-       * Call remove-movie api to delete target movie fro liked page
+       * Call remove-movie api to delete target movie fro disliked page
        */
       fetch(`http://localhost:3001/remove-movie`, {
             method: 'POST',
@@ -23,12 +23,12 @@ const LikedMovies = ({ likedMovies, setLikedMovies, setDislikedMovies }) => {
             body: JSON.stringify({
                 user: user.email, // user email
                 id, // movie id
-                from: 'like' // page
+                from: 'dislike' // page
             })
         })
             .then(res => res.json())
             .then(data =>{
-               // update the list
+                // update the list
                 setLikedMovies([...data.liked]);
                 setDislikedMovies([...data.disliked]);
             })
@@ -50,9 +50,9 @@ const LikedMovies = ({ likedMovies, setLikedMovies, setDislikedMovies }) => {
   return (
     <section>
       {/* <h1>My Movies</h1> */}
-      {likedMovies.map(el => <MovieCard key={el.id} movie={el} />)}
+      {dislikedMovies.map(el => <MovieCard key={el.id} movie={el} />)}
     </section>
   );
 };
 
-export default LikedMovies;
+export default DislikedMovies;
