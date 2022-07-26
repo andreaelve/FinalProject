@@ -63,6 +63,10 @@ app.post('/storedLists', async (req, res) => {
     dbo.collection("movie_collection").findOne(myquery, function(err, result) {
       if (err) throw err;
       console.log('hei', result);
+      if(result === null){
+        console.log('tryyy')
+        dbo.collection("movie_collection").insertOne({user: req.body, liked_movies: [], disliked_movies: []})
+      }
       res.send(result);
       db.close();
     });
@@ -76,12 +80,29 @@ app.post('/register', async (req, res) => {
   MongoClient.connect(uri, function(err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
-    dbo.collection("movie_collection").insertOne({user: res.body, liked_movies: [], disliked_movies: []}, function (err, result) {
+    const myquery = { user: req.body.user };
+    dbo.collection("movie_collection").findOne(myquery, function(err, result) {
       if (err) throw err;
-      console.log(result);
+      console.log('result1' ,result.name);
+      if(result === null){
+        dbo.collection("movie_collection").insertOne({user: res.body, liked_movies: [], disliked_movies: []}, function (err, result) {
+          if (err) throw err;
+          console.log('result2', result);
+        })
+      }
       db.close();
-    })
+    });
   });
+
+  // MongoClient.connect(uri, function(err, db) {
+  //   if (err) throw err;
+  //   const dbo = db.db("movies_db");
+  //   dbo.collection("movie_collection").insertOne({user: res.body, liked_movies: [], disliked_movies: []}, function (err, result) {
+  //     if (err) throw err;
+  //     console.log('result2', result);
+  //     db.close();
+  //   })
+  // });
 });
 
 // Get for the initial setup when a user logs in. 

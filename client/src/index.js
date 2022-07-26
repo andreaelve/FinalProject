@@ -19,6 +19,18 @@ export default function App() {
 
   useEffect(() => {
     if(isAuthenticated){
+      fetch('http://localhost:3001/storedLists/register', {
+        method: 'POST', 
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          user: user.email,
+        }) 
+      })
+      .then(res => res.json());
+
       fetch('http://localhost:3001/storedLists', {  
         method: 'POST', 
         mode: 'cors', 
