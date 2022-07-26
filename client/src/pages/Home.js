@@ -30,8 +30,6 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   }, []);
 
   useEffect(() => {
-    console.log('yo', movies);
-    console.log('counter', counter);
     if(counter === movies.length - 1){
       setCounter(0);
       const newPage = page+1;

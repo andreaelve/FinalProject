@@ -35,7 +35,23 @@ app.get('/movie', async (req, res) => {
 
   console.log("RESPONSE", response);
   res.json(response)
-})
+});
+
+// Deleting user from database 
+// Have to test if it works
+app.delete('/deleteuser', async (req, res) => {
+  const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
+  MongoClient.connect(uri, function(err, db) {
+    if (err) throw err;
+    const dbo = db.db("movies_db");
+    const myquery = { user: req.body.user };
+    dbo.collection("movie_collection").deleteOne(myquery, function(err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+      db.close();
+    });
+  });
+});
 
 app.post('/storedLists', async (req, res) => {
   console.log('heisann', req.body);
@@ -51,7 +67,7 @@ app.post('/storedLists', async (req, res) => {
       db.close();
     });
   });
-})
+});
 
 // we should work on this--------------------------------------------
 app.post('/register', async (req, res) => {
@@ -66,7 +82,7 @@ app.post('/register', async (req, res) => {
       db.close();
     })
   });
-})
+});
 
 // Get for the initial setup when a user logs in. 
 

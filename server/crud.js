@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 import { useInRouterContext } from 'react-router-dom';
 
 
-const PASSWORD = '1234SALT';
+const PASSWORD = 'M3Gj5PNCsHH4fY5K';
 const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
 
 async function main() {
@@ -11,7 +11,7 @@ async function main() {
         await client.connect();
         await createListing(client,
           {
-            user: "mory@new.address",
+            user: "andreaelvegard@gmail.com",
             liked_movies: [
             ],
             disliked_movies: [
@@ -54,6 +54,21 @@ const addMovie = () => {
 
 // addMovie();
 
+const deleteUser = () => {
+  const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
+  MongoClient.connect(uri, function(err, db) {
+    if (err) throw err;
+    const dbo = db.db("movies_db");
+    const myquery = { user: "andreaelvegard@gmail.com" };
+    dbo.collection("movie_collection").deleteOne(myquery, function(err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+      db.close();
+    });
+  });
+}
+
+// deleteUser();
 
 // function create(user, callback) {
 //   const bcrypt = require('bcrypt');
