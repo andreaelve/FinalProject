@@ -31,7 +31,6 @@ export default function App() {
       })
       .then(res => res.json())
       .then(data => {
-        console.log('igjen')
         setLikedMovies([...data.liked_movies])
         setDislikedMovies([...data.disliked_movies])
       })
