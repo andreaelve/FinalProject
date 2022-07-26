@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import path, { dirname } from "path";
 import { fileURLToPath } from 'url';
 const PASSWORD = '1234SALT';
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -114,7 +114,7 @@ app.post('/register', async (req, res) => {
 // })
 
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../client', 'build/index.html'));
+  res.sendFile(path.join(__dirname, 'static/index.html'));
 });
 
 app.listen(PORT, () => {
