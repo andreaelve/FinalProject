@@ -276,7 +276,10 @@ body {
 }
 
 .movie__description {
-  background: white;
+  width: 95vw;
+  height: 142vw;
+  border-radius: 10px;
+  background: rgb(209, 200, 200);
   padding: 1em;
   border-radius: 10px 10px 0 0;
   margin-bottom: 0;

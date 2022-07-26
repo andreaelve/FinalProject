@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import e from "cors";
 import React, { useEffect, useRef, useState } from "react";
 import ButtonSection from "../components/ButtonSection";
+import ReactCardFlip from "react-card-flip";
 // import "../App.css"
 
 const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies }) => {
@@ -14,6 +15,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const info = useRef(null);
   const infoContent = useRef(null);
   const image = useRef(null);
+  const [flip, setFlip] = useState(false);
 
 
   useEffect(()=>{
@@ -143,44 +145,51 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   }
 
   const Movie = () => {
-    const visibilityChange = (e) => {
-      if(e.target === image.current){
-        infoContent.current.className = infoContent.current.className === 'none' ? '' : 'none';
-        info.current.className = info.current.className === "movie__description hidden" ?  "movie__description visible" :  "movie__description hidden";
-      }
-    }
+    // const visibilityChange = (e) => {
+    //   if(e.target === image.current){
+    //     infoContent.current.className = infoContent.current.className === 'none' ? '' : 'none';
+    //     info.current.className = info.current.className === "movie__description hidden" ?  "movie__description visible" :  "movie__description hidden";
+    //   }
+    // }
 
     const imgUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     console.log('hei', imgUrl);
 
 
     return (
-      <div className="movie-card">
-        <div className="movie-card_main">
-          <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)} 
-            style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
-            <div className="button-container">
-              <ButtonSection 
-                counter={counter} 
-                setCounter={setCounter} 
-                dislikedMovies={dislikedMovies} 
-                setDislikedMovies={setDislikedMovies} 
-                likedMovies={likedMovies} 
-                setLikedMovies={setLikedMovies} 
-                movie={movie} />
-            </div>
-          </div>
-          {/* <img ref={image} src={"https://image.tmdb.org/t/p/w500/"+movie.poster_path} alt={movie.title} onClick={() => visibilityChange()} className="card-img" /> */}
-        </div>
-        <div ref={info} className="movie__description hidden">
-          <div ref={infoContent} class='none'>
-            <h2 className="movie-title">{movie.title}</h2>
-            <span className="movie-releasedate">Release Date: {movie.release_date}</span>
-            <p>{movie.overview}</p>
-            <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
-          </div>
-        </div>
-      </div>
+      <ReactCardFlip isFlipped={flip} 
+            flipDirection="vertical" 
+            flipSpeedBackToFront={6}
+            flipSpeedFrontToBack={6}
+            >
+              <div className="movie-card">
+                <div className="movie-card_main">
+                  <div className="card-img" ref={image} onClick={() => setFlip(!flip)} 
+                  style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
+                  </div>
+                    <div className="button-container">
+                      <ButtonSection 
+                      counter={counter} 
+                      setCounter={setCounter} 
+                      dislikedMovies={dislikedMovies} 
+                      setDislikedMovies={setDislikedMovies} 
+                      likedMovies={likedMovies} 
+                      setLikedMovies={setLikedMovies} 
+                      movie={movie} />
+                    </div>
+                </div>
+                {/* <img ref={image} src={"https://image.tmdb.org/t/p/w500/"+movie.poster_path} alt={movie.title} onClick={() => visibilityChange()} className="card-img" /> */}        </div>
+              <div className="movie-card"> 
+                <div ref={info} className="movie__description" onClick={() => setFlip(!flip)}>
+                  <div ref={infoContent} >
+                    <h2 className="movie-title">{movie.title}</h2>
+                    <span className="movie-releasedate">Release Date: {movie.release_date}</span>
+                    <p>{movie.overview}</p>
+                    <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
+                  </div>
+               </div>
+             </div>
+      </ReactCardFlip>
     );
   }
 
@@ -190,6 +199,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
       <Filter />
       {movie && <Movie key={movie.id} />}
     </div>
+    
   );
 };
 
