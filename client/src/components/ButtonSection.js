@@ -60,9 +60,9 @@ const ButtonSection = ({ counter, setCounter, dislikedMovies, setDislikedMovies,
   return (
     <section className="voting-buttons">
       {/* <img src={cancle} alt="cancle icon" className="picker-img" /> */}
-      <button className="voting-buttons_btn" ref={dislike} onClick={(e) => handleClick(e)}>Dislike</button>
-      {/* <img src={love} alt="heart icon" className="picker-img"/> */}
-      <button className="voting-buttons_btn" ref={like} onClick={(e) => handleClick(e)}>Like</button>
+      <button className="voting-buttons_btn dislike_btn" ref={dislike} onClick={(e) => handleClick(e)}></button>
+      {/* <img src={love} alt="heart icon" className="picker-img" /> */}
+      <button className="voting-buttons_btn like_btn" ref={like} onClick={(e) => handleClick(e)}></button>
     </section>
   )
 }

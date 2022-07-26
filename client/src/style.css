@@ -310,11 +310,20 @@ body {
 }
 
 .voting-buttons_btn {
-  width: 3.5em;
-  height: 3.5em;
+  width: 4em;
+  height: 4em;
   border-radius: 50%;
   border: 1px solid white;
-  background-color: transparent;
+  /* background-color: transparent; */
+}
+
+.like_btn {
+  background-image: url('./components/greenHeart.png');
+  background-size: 100% auto;
+}
+.dislike_btn {
+  background-image: url('./components/remove.png');
+  background-size: 100% auto;
 }
 
 .match {
