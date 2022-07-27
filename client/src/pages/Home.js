@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import e from "cors";
 import React, { useEffect, useRef, useState } from "react";
 import ButtonSection from "../components/ButtonSection";
-// import "../App.css"
+import "../App.css"
 
 const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies }) => {
   const { user , post} = useAuth0();
@@ -155,32 +155,64 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
 
 
     return (
-      <div className="movie-card">
-        <div className="movie-card_main">
-          <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)} 
-            style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
-            <div className="button-container">
-            </div>
-          </div>
-              <ButtonSection 
-                counter={counter} 
-                setCounter={setCounter} 
-                dislikedMovies={dislikedMovies} 
-                setDislikedMovies={setDislikedMovies} 
-                likedMovies={likedMovies} 
+    //   <div className="movie-card">
+    //     <div className="movie-card_main">
+    //       <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)} 
+    //         style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
+    //         <div className="button-container">
+    //         </div>
+    //       </div>
+    //           <ButtonSection 
+    //             counter={counter} 
+    //             setCounter={setCounter} 
+    //             dislikedMovies={dislikedMovies} 
+    //             setDislikedMovies={setDislikedMovies} 
+    //             likedMovies={likedMovies} 
+    //             setLikedMovies={setLikedMovies} 
+    //             movie={movie} />
+    //     </div>
+    //     <div ref={info} className="movie__description hidden">
+    //       <div ref={infoContent} class='none'>
+    //         <h2 className="movie-title">{movie.title}</h2>
+    //         <span className="movie-releasedate">Release Date: {movie.release_date}</span>
+    //         <p>{movie.overview}</p>
+    //         <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
+    //       </div>
+    //     </div>
+    //   </div>
+
+
+    <div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+    <div className="movie-card">
+         <div className="movie-card_main">
+           <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)} 
+             style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
+             <div className="button-container">
+             </div>
+           </div>
+               <ButtonSection 
+                 counter={counter} 
+                 setCounter={setCounter} 
+                 dislikedMovies={dislikedMovies} 
+                 setDislikedMovies={setDislikedMovies} 
+                 likedMovies={likedMovies} 
                 setLikedMovies={setLikedMovies} 
                 movie={movie} />
-          {/* <img ref={image} src={"https://image.tmdb.org/t/p/w500/"+movie.poster_path} alt={movie.title} onClick={() => visibilityChange()} className="card-img" /> */}
         </div>
-        <div ref={info} className="movie__description hidden">
-          <div ref={infoContent} class='none'>
-            <h2 className="movie-title">{movie.title}</h2>
-            <span className="movie-releasedate">Release Date: {movie.release_date}</span>
-            <p>{movie.overview}</p>
-            <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
           </div>
-        </div>
-      </div>
+    </div>
+    <div class="flip-card-back">
+             <h2 className="movie-title">{movie.title}</h2>
+             <span className="movie-releasedate">Release Date: {movie.release_date}</span>
+             <p>{movie.overview}</p>
+             <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
+    </div>
+  </div>
+</div>
+
+
     );
   }
 
