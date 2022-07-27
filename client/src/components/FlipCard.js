@@ -49,7 +49,7 @@ function FlipCard({ card, dislikedMovies, setDislikedMovies, likedMovies,  setLi
         </div>
         <div className="card back">
           <div className="card-body d-flex justify-content-center align-items-center">
-            <div class="flip-card-back"
+            <div className="flip-card-back"
             // style={{backgroundImage: 'url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')', backgroundSize: "100%, 100%"}}
             >
               <h2 className="movie-title">{movie.title}</h2>
