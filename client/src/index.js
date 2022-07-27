@@ -14,31 +14,31 @@ import './style.css';
 
 export default function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
-  const [ dislikedMovies,  setDislikedMovies ] = useState([]);
-  const [ likedMovies,  setLikedMovies ] = useState([]);
+  const [dislikedMovies, setDislikedMovies] = useState([]);
+  const [likedMovies, setLikedMovies] = useState([]);
 
   useEffect(() => {
-    if(isAuthenticated){
-      fetch('/storedLists', {  
-        method: 'POST', 
+    if (isAuthenticated) {
+      fetch('/storedLists', {
+        method: 'POST',
         // mode: 'cors', 
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: user.email,
-        }) 
+        })
       })
-      .then(res => res.json())
-      .then(data => {
-        console.log('igjen')
-        setLikedMovies([...data.liked_movies])
-        setDislikedMovies([...data.disliked_movies])
-      })
+        .then(res => res.json())
+        .then(data => {
+          console.log('igjen')
+          setLikedMovies([...data.liked_movies])
+          setDislikedMovies([...data.disliked_movies])
+        })
     }
   }, [user])
 
-  if(!isAuthenticated ){
+  if (!isAuthenticated) {
     return <Login />
   }
 
@@ -46,12 +46,12 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home 
-            dislikedMovies={dislikedMovies}  
+          <Route index element={<Home
+            dislikedMovies={dislikedMovies}
             setDislikedMovies={setDislikedMovies}
-            likedMovies={likedMovies}  
+            likedMovies={likedMovies}
             setLikedMovies={setLikedMovies}
-            />} />
+          />} />
           <Route path="login" element={<Login />} />
           <Route path="match" element={<Match likedMovies={likedMovies} />} />
           <Route path="profile" element={<Profile />} />
@@ -66,10 +66,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Auth0Provider
     // Hardcoding it for now
-      domain="dev-3g7shhdy.us.auth0.com"
-      clientId="7TetmI8GQhtDruSdI5ymkH4aXiLcxaOz"
-      redirectUri={window.location.origin}
-    >
-      <App />
-    </Auth0Provider>
+    domain="dev-3g7shhdy.us.auth0.com"
+    clientId="7TetmI8GQhtDruSdI5ymkH4aXiLcxaOz"
+    redirectUri={window.location.origin}
+  >
+    <App />
+  </Auth0Provider>
 );
