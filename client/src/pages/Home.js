@@ -1,6 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useRef, useState } from "react";
 import ButtonSection from "../components/ButtonSection";
+import "../App.scss"
+import FlipCard from "../components/FlipCard";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }) => {
   const { user, post } = useAuth0();
@@ -14,6 +18,14 @@ const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }
   const infoContent = useRef(null);
   const image = useRef(null);
 
+  const cards = [
+    {
+      id: "2",
+      variant: "click",
+      front: "This is the Front - Click to flip",
+      back: "Back"
+    }
+  ];
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -56,8 +68,6 @@ const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }
         setMovies(nope.filter(el => el !== undefined));
       });
   }, [likedMovies]);
-
-
 
   useEffect(() => {
     if (counter === movies.length - 1) {
@@ -155,33 +165,17 @@ const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }
 
 
     return (
-      <div className="movie-card">
-        <div className="movie-card_main">
-          <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)}
-            style={{ backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url(' + `https://image.tmdb.org/t/p/w500/${movie.poster_path}` + ')' }}>
-            <div className="button-container">
-            </div>
-          </div>
-          <ButtonSection
-            counter={counter}
-            setCounter={setCounter}
-            dislikedMovies={dislikedMovies}
-            setDislikedMovies={setDislikedMovies}
-            likedMovies={likedMovies}
-            setLikedMovies={setLikedMovies}
-            movie={movie} />
-        </div>
-        <div ref={info} className="movie__description hidden">
-          <div ref={infoContent} className='none'>
-            <h2 className="movie-title">{movie.title}</h2>
-            <span className="movie-releasedate">Release Date: {movie.release_date}</span>
-            <p>{movie.overview}</p>
-            <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
-          </div>
+      <div className="container">
+      <div className="row h-100">
+        <div class="col d-flex flex-column flex-md-row justify-content-around align-items-center">
+          {cards.map((card) => (
+            <FlipCard key={card.id} card={card} dislikedMovies={dislikedMovies} setDislikedMovies={setDislikedMovies} likedMovies={likedMovies}  setLikedMovies={setLikedMovies} movie={movie} />
+          ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+ }
 
   return (
     <div className="main">
@@ -192,4 +186,3 @@ const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }
 };
 
 export default Home;
-
