@@ -55,7 +55,7 @@ function FlipCard({ card, dislikedMovies, setDislikedMovies, likedMovies,  setLi
               <h2 className="movie-title">{movie.title}</h2>
               <span className="movie-releasedate">Release Date: {movie.release_date}</span>
               <p>{movie.overview}</p>
-              <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
+              <h5 className="movie-rating">User Rating: {movie.vote_average} / 10</h5>
             </div>
           </div>
         </div>

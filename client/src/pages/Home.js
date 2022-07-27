@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useRef, useState } from "react";
 import ButtonSection from "../components/ButtonSection";
-import "../App.scss"
+// import "../App.scss"
 import FlipCard from "../components/FlipCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -67,7 +67,7 @@ const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }
         console.log('hei')
         setMovies(nope.filter(el => el !== undefined));
       });
-  }, [likedMovies]);
+  }, [likedMovies, dislikedMovies]);
 
   useEffect(() => {
     if (counter === movies.length - 1) {
@@ -76,6 +76,8 @@ const Home = ({ dislikedMovies, setDislikedMovies, likedMovies, setLikedMovies }
       setPage(newPage);
     }
     setMovie(movies[counter]);
+    console.log("movie", movie);
+    console.log("counter", counter);
   }, [movies, counter])
 
   useEffect(() => {

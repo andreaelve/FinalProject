@@ -9,7 +9,7 @@ import LikedMovies from "./pages/LikedMovies";
 import Login from "./pages/Login";
 import { useEffect, useState } from "react";
 import Match from "./pages/Match";
-import './style.css';
+import './style.scss';
 
 export default function App() {
   const { isAuthenticated, isLoading, user } = useAuth0();
