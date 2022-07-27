@@ -15,6 +15,7 @@ body {
   z-index: 0;
 }
 
+
 .login {
   display: grid;
   height: 100vh;
@@ -193,9 +194,9 @@ body {
 }
 
 .category_bar {
-  margin-bottom: 1.5em;
-  margin-top: 1.5em;
-  padding: 0.3em;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+  padding: 0.1em;
   text-align: center;
   border-radius: 10px;
   width: 15em;
@@ -246,14 +247,19 @@ body {
 }
 
 .card-img {
+
+  /* max-width: 400px;
+  max-height: 600px; */
   width: 80vw;
   height: 120vw;
+  object-fit: cover;
   border-radius: 10px;
   background-size: contain;
   display: grid;
   align-items: end;
   align-content: flex-end;
   padding: 0.5em;
+  background-repeat: no-repeat;
 }
 
 .hidden {
@@ -289,7 +295,8 @@ body {
 
 .liked-movie_info h2 {
   color: #EAECFF;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .movie__description * {
@@ -316,6 +323,8 @@ body {
 
 .voting-buttons {
   display: flex;
+  margin-bottom: 0;
+  margin-top: 0;
   padding: 1em;
   justify-content: space-around;
 }
@@ -327,6 +336,7 @@ body {
   border: 1px solid white;
   background-color: transparent;
   margin-top: 1rem;
+
 }
 
 .match {
@@ -339,7 +349,7 @@ body {
   padding: 0.5em;
   border-radius: 10px;
   background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.633);
+  border: 1px solid #6E83CF;
   font-size: 1em;
   margin: 1em 1em 2em 1em;
 }
@@ -348,7 +358,7 @@ body {
 .liked-movies_heading, 
 .profile-heading {
   color: #EAECFF;
-  font-size: 2.5em;
+  font-size: 2.2em;
 }
 
 .match-img {
@@ -359,7 +369,7 @@ body {
 .profile-heading {
   display: grid;
   justify-items: center;
-  margin-bottom: 3em;
+  margin-bottom: 2em;
 }
 
 .match-card-title {
@@ -393,6 +403,7 @@ body {
   /* grid-template-columns: 1fr 3fr ; */
   padding: 0.5em;
   align-items: end;
+  width: 100%;
 }
 
 .remove-btn {
@@ -400,10 +411,11 @@ body {
   padding: 0.2em 0;
   background-color: transparent;
   border-radius: 5px;
-  border: 1px solid #ffffff6a;
-  color: #ffffff6a;
+  border: 1px solid #ffffff8f;
+  color: #ffffff94;
   cursor: pointer;
   justify-self: end;
+  cursor: pointer;
 }
 
 .profile {
@@ -412,16 +424,19 @@ body {
 }
 
 .profile-img {
-  width: 15em;
+  width: 10em;
   border-radius: 50%;
-  border: solid 1px #f4a261;
+  border: solid 1px #6E83CF;
 }
 
 .profile-username {
-  font-size: 2em;
+  font-size: 1.8em;
   margin: 0.5em;
 }
 
+.profile p{
+color: #6E83CF;
+}
 .logout-btn {
   width: 6em;
   font-size: 1em;
@@ -515,4 +530,66 @@ body {
 
 .card {
   background-color: transparent;
+=======
+.delete-btn {
+  background-color: initial;
+  border: 1px solid hsl(0deg 0% 100% / 26%);
+  border-radius: 5px;
+  color: #818181;
+  font-size: 0.8em;
+  margin: 2em;
+  padding: 0.2em 0.5em;
+  justify-self: center;
+}
+
+.like_btn {
+  background-image: url('./components/greenHeart.png');
+  background-size: 100% auto;
+}
+.dislike_btn {
+  background-image: url('./components/remove.png');
+  background-size: 100% auto;
+}
+
+
+@media screen and (min-width:600px) {
+  /* .logo {
+    font-size: 5em;
+  }
+.popcorn_img {
+  width: 15em;
+  margin: 4em 0em 2em 0em;
+} */
+/* .login_btn {
+  width: 12em;
+  padding: 1.4em;
+  font-size: 1.5em;
+  margin-top: 1.5em;
+} */
+
+.liked-movie {
+  display: flex;
+  margin: 1em 1em;
+  max-width: 60em;
+  
+}
+
+.liked-movie_img {
+  width: 20vw;
+  margin-right: 0.5em;
+}
+
+.liked-movie_info h2{
+ font-size: 2em;
+}
+
+.card-img {
+
+  width: 600px;
+  height: 900px;
+  
+}
+.match-img {
+  width: 20vw;
+}
 }

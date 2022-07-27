@@ -5,26 +5,26 @@ const ButtonSection = ({ counter, setCounter, dislikedMovies, setDislikedMovies,
   const { user } = useAuth0();
   const like = useRef(null);
   const dislike = useRef(null);
-  
-  const sendList = (newLikedMovies,newDislikedMovies) => {
+
+  const sendList = (newLikedMovies, newDislikedMovies) => {
     console.log(newLikedMovies);
     console.log(newDislikedMovies);
-    fetch('http://localhost:3001/movie', {  
-      method: 'POST', 
+    fetch('http://localhost:3001/movie', {
+      method: 'POST',
       // mode: 'cors', 
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         email: user.email,
         likedMovies: [...newLikedMovies],
         dislikedMovies: [...newDislikedMovies]
-      }) 
-    }).then(res=>res.json())
-    .then(data=>console.log(data))
-    .catch(error=>console.log(error))
+      })
+    }).then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
   }
-  
+
   const handleClick = (e) => {
     const newMovie = {
       title: movie.title,
@@ -33,18 +33,18 @@ const ButtonSection = ({ counter, setCounter, dislikedMovies, setDislikedMovies,
       rating: movie.vote_average,
       id: movie.id,
     }
-    let newLikedMovies=likedMovies
-    let newDislikedMovies=dislikedMovies
-    if(e.target === like.current){
-      newLikedMovies = likedMovies.slice() 
+    let newLikedMovies = likedMovies
+    let newDislikedMovies = dislikedMovies
+    if (e.target === like.current) {
+      newLikedMovies = likedMovies.slice()
       newLikedMovies.push(newMovie)
       setLikedMovies(newLikedMovies);
     }
-    if(e.target === dislike.current){
-      newDislikedMovies = dislikedMovies.slice() 
+    if (e.target === dislike.current) {
+      newDislikedMovies = dislikedMovies.slice()
       newDislikedMovies.push(newMovie)
       setDislikedMovies(newDislikedMovies);
-     
+
     }
 
     sendList(newLikedMovies, newDislikedMovies);
