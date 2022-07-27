@@ -2,7 +2,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import e from "cors";
 import React, { useEffect, useRef, useState } from "react";
 import ButtonSection from "../components/ButtonSection";
-// import "../App.css"
+import "../App.scss"
+import FlipCard from "../components/FlipCard";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies }) => {
   const { user , post} = useAuth0();
@@ -15,6 +18,14 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const infoContent = useRef(null);
   const image = useRef(null);
 
+  const cards = [
+    {
+      id: "2",
+      variant: "click",
+      front: "This is the Front - Click to flip",
+      back: "Back"
+    }
+  ];
 
   useEffect(()=>{
     if (!localStorage.getItem("user")) {
@@ -55,19 +66,6 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
         console.log('hei')
         setMovies(nope.filter(el => el !== undefined));});
   }, [likedMovies]);
-
-  // useEffect(() => {
-  //   // Defaults to popular movies
-  //   fetch('https://api.themoviedb.org/3/discover/movie?api_key=2b61576c6129138ce5beeb3937518565&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate')
-  //   .then(res => res.json())
-  //   .then(data => { 
-  //     console.log(data.results)
-  //     let nope = data.results.filter(el => dislikedMovies.find(movie => movie.id === !el.id));
-  //     nope.push(data.results.filter(el => likedMovies.find(movie => movie.id === !el.id))) 
-  //     console.log('nope', nope);
-  //     setMovies(nope);
-  //   });
-  // }, [])
 
   useEffect(() => {
     setMovie(movies[counter]);
@@ -143,50 +141,26 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   }
 
   const Movie = () => {
-    const visibilityChange = (e) => {
-      if(e.target === image.current){
-        infoContent.current.className = infoContent.current.className === 'none' ? '' : 'none';
-        info.current.className = info.current.className === "movie__description hidden" ?  "movie__description visible" :  "movie__description hidden";
-      }
-    }
 
     const imgUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     console.log('hei', imgUrl);
 
 
     return (
-      <div className="movie-card">
-        <div className="movie-card_main">
-          <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)} 
-            style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
-            <div className="button-container">
-            </div>
-          </div>
-              <ButtonSection 
-                counter={counter} 
-                setCounter={setCounter} 
-                dislikedMovies={dislikedMovies} 
-                setDislikedMovies={setDislikedMovies} 
-                likedMovies={likedMovies} 
-                setLikedMovies={setLikedMovies} 
-                movie={movie} />
-          {/* <img ref={image} src={"https://image.tmdb.org/t/p/w500/"+movie.poster_path} alt={movie.title} onClick={() => visibilityChange()} className="card-img" /> */}
-        </div>
-        <div ref={info} className="movie__description hidden">
-          <div ref={infoContent} class='none'>
-            <h2 className="movie-title">{movie.title}</h2>
-            <span className="movie-releasedate">Release Date: {movie.release_date}</span>
-            <p>{movie.overview}</p>
-            <p className="movie-rating">User Rating: {movie.vote_average} / 10</p>
-          </div>
+      <div className="container">
+      <div className="row h-100">
+        <div class="col d-flex flex-column flex-md-row justify-content-around align-items-center">
+          {cards.map((card) => (
+            <FlipCard key={card.id} card={card} dislikedMovies={dislikedMovies} setDislikedMovies={setDislikedMovies} likedMovies={likedMovies}  setLikedMovies={setLikedMovies} movie={movie} />
+          ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+ }
 
   return (
     <div>
-      {/* <h1>Home</h1> */}
       <Filter />
       {movie && <Movie key={movie.id} />}
     </div>
@@ -194,4 +168,3 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
 };
 
 export default Home;
-
