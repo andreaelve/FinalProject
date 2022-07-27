@@ -54,19 +54,28 @@ app.post('/storedLists', async (req, res) => {
 
 // we should work on this--------------------------------------------
 app.post('/register', async (req, res) => {
-  // console.log('heisann2', req.body);
-  const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
-  MongoClient.connect(uri, function(err, db) {
+  const uri = 'mongodb+srv://codeClub:' + PASSWORD + '@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
+  MongoClient.connect(uri, function (err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
-    dbo.collection("movie_collection").insertOne({email: req.body.email, liked_movies: [], disliked_movies: []}, function (err, result) {
+    const myquery = { email: req.body.email };
+    dbo.collection("movie_collection").findOne(myquery, function (err, result) {
       if (err) throw err;
-      // console.log(result);
-      db.close();
-    })
-  });
-})
+      if (!result) {
+        dbo.collection("movie_collection").insertOne({ email: req.body.email, liked_movies: [], disliked_movies: [] }, function (err, result) {
+          if (err) throw err;
+          console.log(result);
+          db.close();
+        })
+      } else {
 
+        res.send(result);
+        db.close();
+      }
+    });
+  });
+
+});
 
 // Get for the initial setup when a user logs in. 
 
