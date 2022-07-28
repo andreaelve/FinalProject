@@ -10,7 +10,7 @@
 } 
 
 body {
-  background: linear-gradient(#182f3e, #030c12);
+   background: linear-gradient(#0b1f2c, #030c12);
   min-height: 100vh;
   z-index: 0;
 }
@@ -320,6 +320,7 @@ body {
 .movie-title {
   font-size: 1.5em;
   margin-top: 0;
+  color: #0b1f2c;
 }
 
 .voting-buttons {
@@ -509,7 +510,7 @@ color: #6E83CF;
 .flip-card-back {
   padding: 2rem;
   margin: -.8rem;
-  background: linear-gradient(105deg, #ffffff52, #ffffffba);  
+   background: linear-gradient(105deg, #ffffff52, #ffffffba);  
   border-radius: 10px;
   width: 80vw;
   height: 120vw;
@@ -517,13 +518,15 @@ color: #6E83CF;
 }
 
 .movie-releasedate, .movie-rating{
-  color: #000000;
+  color: #0b1f2c;
+  font-weight: 500;
 }
 
 .flip-card-back p {
   // margin-top: .8rem;
-  font-size: .9rem;
+  font-size: 1rem;
   color: #ffffff;
+  text-align: left;
   overflow: scroll;
   margin-top: 0.3rem;
   height: 18rem;
@@ -536,6 +539,14 @@ color: #6E83CF;
 .card {
   background-color: transparent;
 }
+
+.card-text{
+  border: 0.5px solid #0b1f2c;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #7b88acde;
+}
+
 
 .delete-btn {
   background-color: initial;
@@ -570,6 +581,7 @@ color: #6E83CF;
 .liked-movie_img {
   width: 20vw;
   margin-right: 0.5em;
+  border-radius: 10px;
 }
 
 .liked-movie_info h2{
@@ -584,6 +596,7 @@ color: #6E83CF;
 }
 .match-img {
   width: 20vw;
+  border-radius: 40px;
 }
 .navbar .menu-items {
   display: flex;
