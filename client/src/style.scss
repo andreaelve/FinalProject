@@ -553,7 +553,7 @@ color: #6E83CF;
   background-color: initial;
   border: 1px solid hsl(0deg 0% 100% / 26%);
   border-radius: 5px;
-  color: #818181;
+  color: #984f4f;
   font-size: 0.8em;
   margin: 2em;
   padding: 0.2em 0.5em;
@@ -615,4 +615,11 @@ color: #6E83CF;
 .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
   max-width: 100vw;
 }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  height: 20rem;
+  justify-content: space-between;
 }
