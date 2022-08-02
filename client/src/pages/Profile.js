@@ -3,10 +3,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Profile = () => {
   const { logout, user } = useAuth0();
 
-  const logoutHandler = () => {
-    logout({ returnTo: window.location.origin })
-    localStorage.removeItem("user")
-  }
+  const handleLogout = () => {
+    logout({ returnTo: window.location.origin });
+    //localStorage.removeItem("user");
+  };
 
   const handleDelete = () => {
     fetch('/deleteuser', {
@@ -19,16 +19,18 @@ const Profile = () => {
         email: user.email
       }) 
     });
-    logoutHandler();
+    localStorage.removeItem("user");
+    handleLogout();
   }
 
+  // TODO: Handle if no picture or name
   return (
     <div className="profile">
       <h1 className="profile-heading">My Profile</h1>
       <img className="profile-img" src={user.picture} alt={user.name}/>
       <h2 className="profile-username" >{user.name}</h2>
       <p>{user.email}</p>
-      <button className="logout-btn" onClick={logoutHandler}>Log Out</button>
+      <button className="logout-btn" onClick={handleLogout}>Log Out</button>
       <button onClick={() => handleDelete()} class="delete-btn">Delete Account</button>
     </div>
   );

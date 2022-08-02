@@ -13,22 +13,6 @@ const Layout = () => {
 
   return (
     <>
-      {/* <nav className="navbar">
-        <ul>
-          <li>
-            <Link to="/profile"><img src={user.picture} alt="profile image" className="profile_link"/></Link>
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/likedmovies">My Movies</Link>
-          </li>
-          <li>
-            <Link to="/match">Match</Link>
-          </li>
-        </ul>
-      </nav> */}
       <nav class="navbar">
           <div class="container nav-container">
               <Link to="/profile" className="profile_link"><img src={user.picture} alt="profile image" className="profile_img"/></Link>
