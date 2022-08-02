@@ -4,9 +4,8 @@ import ButtonSection from "../components/ButtonSection";
 import star from '../assets/star.png';
 
 const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies }) => {
-  const { user , post} = useAuth0();
+  const { user } = useAuth0();
   const [ category, setCategory ] = useState(null);
-  const [email, setEmail] = useState(null);
   const [ counter, setCounter ] = useState(0);
   const [ movies, setMovies ] = useState([]);
   const [ movie, setMovie ] = useState(movies[counter]);
@@ -15,11 +14,8 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const infoContent = useRef(null);
   const image = useRef(null);
 
-
-  // TODO: Fix slow fetching
   useEffect(()=>{
     if (!localStorage.getItem("user")) {
-      
       fetch('/register', {  
         method: 'POST', 
         mode: 'cors', 
@@ -31,16 +27,13 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
         }) 
       })
       .then((res)=>res.json())
-      .then(data=>{
-        console.log(user.email);
-
-      })
-      .catch(error=>console.log(error))
-
-      localStorage.setItem("user",JSON.stringify(user.email))
+      .then(() => console.log(user.email))
+      .catch(error=>console.log(error));
+      localStorage.setItem("user",JSON.stringify(user.email));
     }
   },[])
   
+  // TODO: Fix slow fetching
   useEffect(() => {
      // Defaults to popular movies
      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=2b61576c6129138ce5beeb3937518565&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`)
@@ -53,10 +46,10 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
           }}
           
         });
-        console.log('hei')
         setMovies(nope.filter(el => el !== undefined));});
   }, [likedMovies]);
 
+  // TODO: Find a better way of handling this:
   useEffect(() => {
     if(counter === movies.length - 1){
       setCounter(0);
@@ -67,24 +60,12 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   }, [movies, counter])
 
   useEffect(() => {
-    if(category === null) {
-      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=2b61576c6129138ce5beeb3937518565&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`)
-      .then(res => res.json())
-      .then(data => {
-        let nope = data.results.map(el => {
-          if(!dislikedMovies.find(movie => movie.id === el.id)){
-            if(!likedMovies.find(movie => movie.id === el.id)){
-              return el;
-          }}
-          
-        });
-        console.log('hei')
-        setMovies(nope.filter(el => el !== undefined));});
-        return;
-    }
+    const fetchUrl = (category === null) 
+      ? `https://api.themoviedb.org/3/discover/movie?api_key=2b61576c6129138ce5beeb3937518565&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
+      :  `https://api.themoviedb.org/3/discover/movie?with_genres=${category}&api_key=2b61576c6129138ce5beeb3937518565&language=en-US`;
 
-    fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${category}&api_key=2b61576c6129138ce5beeb3937518565&language=en-US`)
-      .then(res => res.json())
+    fetch(fetchUrl)
+    .then(res => res.json())
       .then(data => {
         let nope = data.results.map(el => {
           if(!dislikedMovies.find(movie => movie.id === el.id)){
@@ -93,7 +74,6 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
           }}
           
         });
-        console.log('change')
         setMovies(nope.filter(el => el !== undefined));
       });
   }, [category, page]);
@@ -138,6 +118,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
     )
   }
 
+  // TODO: Make component
   const Movie = () => {
     const visibilityChange = (e) => {
       if(e.target === image.current){
@@ -145,10 +126,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
         info.current.className = info.current.className === "movie__description hidden" ?  "movie__description visible" :  "movie__description hidden";
       }
     }
-
     const imgUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-    console.log('hei', imgUrl);
-
 
     return (
       <div className="movie-card">
@@ -166,7 +144,6 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
                 likedMovies={likedMovies} 
                 setLikedMovies={setLikedMovies} 
                 movie={movie} />
-          {/* <img ref={image} src={"https://image.tmdb.org/t/p/w500/"+movie.poster_path} alt={movie.title} onClick={() => visibilityChange()} className="card-img" /> */}
         </div>
         <div ref={info} className="movie__description hidden">
           <div ref={infoContent} class='none'>
@@ -182,7 +159,6 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
 
   return (
     <div>
-      {/* <h1>Home</h1> */}
       <Filter />
       {movie && <Movie key={movie.id} />}
     </div>

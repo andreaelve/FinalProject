@@ -20,7 +20,6 @@ export default function App() {
     if(isAuthenticated){
       fetch('/storedLists', {  
         method: 'POST', 
-        // mode: 'cors', 
         headers: {
           'Content-Type': 'application/json'
         },
@@ -30,7 +29,6 @@ export default function App() {
       })
       .then(res => res.json())
       .then(data => {
-        console.log('igjen')
         setLikedMovies([...data.liked_movies])
         setDislikedMovies([...data.disliked_movies])
       })

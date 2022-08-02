@@ -2,7 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
 const LikedMovies = ({ likedMovies, setLikedMovies }) => {
-
   const { user } = useAuth0();
   // TODO: Delete list button
   // TODO: Return message if no liked movies
