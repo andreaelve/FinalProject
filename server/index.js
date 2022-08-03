@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 // Fetches the movies form api
 app.get('/movie', async (req, res) => {

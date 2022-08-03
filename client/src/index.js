@@ -18,20 +18,25 @@ export default function App() {
 
   useEffect(() => {
     if(isAuthenticated){
-      fetch('/storedLists', {  
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          email: user.email,
-        }) 
-      })
-      .then(res => res.json())
-      .then(data => {
-        setLikedMovies([...data.liked_movies])
-        setDislikedMovies([...data.disliked_movies])
-      })
+      try {
+        fetch('/storedLists', {  
+          method: 'POST', 
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            email: user.email,
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          setLikedMovies([...data.liked_movies])
+          setDislikedMovies([...data.disliked_movies])
+        })
+      } catch(err) {
+        console.log(err);
+      }
     }
   }, [user])
 

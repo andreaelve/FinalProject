@@ -22,7 +22,7 @@ const LikedMovies = ({ likedMovies, setLikedMovies }) => {
   const MovieCard = ({ movie }) => {
     const handleDelete = (e, id) =>{
      e.preventDefault();
-     fetch(`/remove-movie`,{
+     fetch(`/remove-movie`, {
        method: 'POST',
        mode: 'cors',
        headers: {
