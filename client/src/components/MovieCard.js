@@ -17,7 +17,12 @@ const MovieCard = ({ movie, setLikedMovies }) => {
         })
       })
       .then(res => res.json())
+      .then(data => {
+          console.log(data);
+          return data;
+      })
       .then(data => setLikedMovies(data.liked))
+      .catch((err) => console.log(err))
     }
 
     return (

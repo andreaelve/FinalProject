@@ -31,7 +31,7 @@ const Profile = () => {
       <h2 className="profile-username" >{user.name}</h2>
       <p>{user.email}</p>
       <button className="logout-btn" onClick={handleLogout}>Log Out</button>
-      <button onClick={() => handleDelete()} class="delete-btn">Delete Account</button>
+      <button onClick={() => handleDelete()} className="delete-btn">Delete Account</button>
     </div>
   );
 };

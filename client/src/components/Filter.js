@@ -1,6 +1,4 @@
-// TODO: Make a dynamic list
 const Filter = ({setCategory, setCounter}) => {
-    // Changing category of films when changing option in dropdown
     const handleChange = (e) => {
         if(e.target.value === "popular"){
         return setCategory(null);
@@ -9,10 +7,11 @@ const Filter = ({setCategory, setCounter}) => {
         setCounter(0);
     }
 
+    // TODO: Make a dynamic list
     return (
         <div className="option">
-            <select className="category_bar" name="category" id="category" onChange={(e) => handleChange(e)}>
-                <option className="option_item" value="" disabled selected>Category</option>
+            <select className="category_bar" name="category" defaultValue="" id="category" onChange={(e) => handleChange(e)}>
+                <option className="option_item" value="" disabled >Category</option>
                 <option className="option_item" value="popular">Popular</option>
                 <option className="option_item" value="28">Action</option>
                 <option className="option_item" value="18">Drama</option>

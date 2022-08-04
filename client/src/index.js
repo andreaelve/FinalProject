@@ -10,6 +10,9 @@ import Login from "./pages/Login";
 import { useEffect, useState } from "react";
 import Match from "./pages/Match";
 import './style.css';
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENTID;
+console.log(domain, clientId);
 
 export default function App() {
   const { isAuthenticated, user } = useAuth0();
@@ -18,25 +21,21 @@ export default function App() {
 
   useEffect(() => {
     if(isAuthenticated){
-      try {
-        fetch('/storedLists', {  
-          method: 'POST', 
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-            email: user.email,
-          })
+      fetch('/storedLists', {  
+        method: 'POST', 
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          email: user.email,
         })
-        .then(res => res.json())
-        .then(data => {
-          setLikedMovies([...data.liked_movies])
-          setDislikedMovies([...data.disliked_movies])
-        })
-      } catch(err) {
-        console.log(err);
-      }
+      })
+      .then(res => res.json())
+      .then(data => {
+        setLikedMovies([...data.liked_movies])
+        setDislikedMovies([...data.disliked_movies])
+      })
     }
   }, [user])
 
@@ -67,11 +66,10 @@ export default function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Auth0Provider
-    // Hardcoding it for now
-      domain="dev-3g7shhdy.us.auth0.com"
-      clientId="7TetmI8GQhtDruSdI5ymkH4aXiLcxaOz"
-      redirectUri={window.location.origin}
-    >
+    domain={domain}
+    clientId={clientId}
+    redirectUri={window.location.origin}
+  >
       <App />
-    </Auth0Provider>
+  </Auth0Provider>
 );

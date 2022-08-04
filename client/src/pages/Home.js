@@ -27,16 +27,15 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
           email: user.email
         }) 
       })
-      .then((res)=>res.json())
+      .then(res => res.json())
       .then(() => console.log(user.email))
-      .catch(error=>console.log(error));
+      .catch(error => console.log(error));
       localStorage.setItem("user",JSON.stringify(user.email));
     }
   },[])
   
   // TODO: Fix slow fetching
   useEffect(() => {
-     // Defaults to popular movies
      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=2b61576c6129138ce5beeb3937518565&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`)
       .then(res => res.json())
       .then(data => {
@@ -87,7 +86,6 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
         info.current.className = info.current.className === "movie__description hidden" ?  "movie__description visible" :  "movie__description hidden";
       }
     }
-    const imgUrl = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
 
     return (
       <div className="movie-card">
@@ -107,11 +105,11 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
           </div>
         </div>
         <div ref={info} className="movie__description hidden">
-          <div ref={infoContent} class='none'>
+          <div ref={infoContent} className='none'>
             <h2 className="movie-title">{movie.title}</h2>
             <span className="movie-releasedate">Release Date: {movie.release_date}</span>
             <p>{movie.overview}</p>
-            <p className="movie-rating">{movie.vote_average}/10<img class="star-icon" src={star}/></p>
+            <p className="movie-rating">{movie.vote_average}/10<img className="star-icon" src={star}/></p>
           </div>
         </div>
       </div>

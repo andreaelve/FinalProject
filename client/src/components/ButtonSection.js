@@ -7,8 +7,6 @@ const ButtonSection = ({ counter, setCounter, dislikedMovies, setDislikedMovies,
   const dislike = useRef(null);
   
   const sendList = (newLikedMovies,newDislikedMovies) => {
-    console.log(newLikedMovies);
-    console.log(newDislikedMovies);
     fetch('http://localhost:3001/movie', {  
       method: 'POST', 
       // mode: 'cors', 
@@ -20,9 +18,8 @@ const ButtonSection = ({ counter, setCounter, dislikedMovies, setDislikedMovies,
         likedMovies: [...newLikedMovies],
         dislikedMovies: [...newDislikedMovies]
       }) 
-    }).then(res=>res.json())
-    .then(data=>console.log(data))
-    .catch(error=>console.log(error))
+    })
+    .catch(error => console.log(error))
   }
   
   const handleClick = (e) => {

@@ -5,9 +5,10 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import bodyParser from 'body-parser';
 import path from "path";
 import { fileURLToPath } from 'url';
-const PASSWORD = 'M3Gj5PNCsHH4fY5K';
-const uri = `mongodb+srv://codeClub:${PASSWORD}@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri,{ useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+import 'dotenv/config';
+// TODO: Make variable accessible in heroku
+const url = process.env.DB_URL;
+const client = new MongoClient(url,{ useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const PORT = process.env.PORT || 3001;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +22,6 @@ app.use(cors());
 
 // Fetches the movies form api
 app.get('/movie', async (req, res) => {
-  const url = "https://api.themoviedb.org/3/discover/movie?with_genres=18&api_key=2b61576c6129138ce5beeb3937518565&language=en-US";
   const option= {
     "method" : "GET",
   }
@@ -38,8 +38,7 @@ app.get('/movie', async (req, res) => {
 
 // Fetches all lists from the db
 app.post('/storedLists', async (req, res) => {
-  const uri = `mongodb+srv://codeClub:${PASSWORD}@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority`;
-    MongoClient.connect(uri, function(err, db) {
+    MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
     const myquery = { email: req.body.email };
@@ -53,8 +52,7 @@ app.post('/storedLists', async (req, res) => {
 
 // Updates the liked list of the user.
 app.post('/movie', async (req, res) => {
-  const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
-  MongoClient.connect(uri, function(err, db) {
+  MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
     const myquery = { email: req.body.email };
@@ -74,13 +72,12 @@ app.post('/movie', async (req, res) => {
 })
 
 // deletes one movie from the list
-app.post('/remove-movie', async (req,res)=>{
-  const uri = 'mongodb+srv://codeClub:'+PASSWORD+'@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
-  MongoClient.connect(uri, async (err, db) => {
+app.post('/removeMovie', async (req, res) => {
+  MongoClient.connect(url, async (err, db) => {
     if (err) throw err;
     try {
       const dbo = db.db("movies_db");
-      const movie_db = dbo.collection('movie_collection')
+      const movie_db = dbo.collection('movie_collection');
       const my_query = {email: req.body.email};
       const exists = await movie_db.findOne(my_query);
       let result = null;
@@ -110,8 +107,8 @@ app.post('/remove-movie', async (req,res)=>{
 
 // Registers a new user
 app.post('/register', async (req, res) => {
-  const uri = 'mongodb+srv://codeClub:' + PASSWORD + '@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
-  MongoClient.connect(uri, function (err, db) {
+  console.log('inside');
+  MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
     const myquery = { email: req.body.email };
@@ -133,8 +130,7 @@ app.post('/register', async (req, res) => {
 
 // Deletes user from db
 app.delete('/deleteuser', async (req, res) => {
-  const uri = 'mongodb+srv://codeClub:' + PASSWORD + '@movie-project.rhbq4r1.mongodb.net/?retryWrites=true&w=majority';
-  MongoClient.connect(uri, function(err, db) {
+  MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
     const myquery = { email: req.body.email };
