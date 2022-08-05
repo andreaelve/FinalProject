@@ -51,53 +51,41 @@ app.post('/storedLists', async (req, res) => {
 })
 
 // Updates the liked list of the user.
-app.post('/movie', async (req, res) => {
+app.post('/addMovie', async (req, res) => {
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
     const myquery = { email: req.body.email };
-    const newvalues = { $set: { email: req.body.email ,
-      liked_movies: req.body.likedMovies,
-        disliked_movies: req.body.dislikedMovies}  
-      };
+    const newvalues = { 
+      $set: { 
+        email: req.body.email,
+        liked_movies: req.body.likedMovies,
+        disliked_movies: req.body.dislikedMovies
+      }};
     dbo.collection("movie_collection").updateOne(myquery, newvalues, function(err, res) {
       if (err) throw err;
-      console.log("1 document updated");
       db.close();     
-      console.log('closed');
-    });
-    
+    })
   });
   return res.send({message:"ok"})
 })
 
 // deletes one movie from the list
 app.post('/removeMovie', async (req, res) => {
+  console.log('removing');
   MongoClient.connect(url, async (err, db) => {
     if (err) throw err;
     try {
       const dbo = db.db("movies_db");
       const movie_db = dbo.collection('movie_collection');
-      const my_query = {email: req.body.email};
-      const exists = await movie_db.findOne(my_query);
-      let result = null;
-      if (exists) {
-        const {id, from} = req.body;
-        let likedMovies = exists.liked_movies;
-        if (from === 'like') {
-          let liked = likedMovies.findIndex((movie) => movie.id === id)
-          if (liked > -1) {
-            likedMovies.splice(liked, 1)
-          }
-        }
-        const new_values = { $set: { liked_movies: likedMovies}  };
-        await movie_db.updateOne(my_query, new_values);
-        result = {
-          liked: likedMovies,
-        }
-      }
+      const my_query = { email: req.body.email };
+      const new_values = { 
+        $set: { 
+          liked_movies: req.body.likedMovies
+        }  
+      };
+      movie_db.updateOne(my_query, new_values);
       await client.close();
-      return res.json(result);
     } catch (e) {
       console.log(e.message)
       throw e;
@@ -107,7 +95,6 @@ app.post('/removeMovie', async (req, res) => {
 
 // Registers a new user
 app.post('/register', async (req, res) => {
-  console.log('inside');
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
@@ -116,7 +103,7 @@ app.post('/register', async (req, res) => {
       if (err) throw err;
       if (!result) {
         dbo.collection("movie_collection").insertOne({ email: req.body.email, liked_movies: [], disliked_movies: [] }, function (err, result) {
-          console.log('new user')
+          console.log('tomt')
           if (err) throw err;
           db.close();
         })
@@ -129,6 +116,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Deletes user from db
+// Todo: Make delete in Auth0 too;
 app.delete('/deleteuser', async (req, res) => {
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;

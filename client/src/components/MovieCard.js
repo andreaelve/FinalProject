@@ -1,28 +1,24 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-const MovieCard = ({ movie, setLikedMovies }) => {
+const MovieCard = ({ movie, setLikedMovies, likedMovies }) => {
     const { user } = useAuth0();
     const handleDelete = (e, id) =>{
-     e.preventDefault();
-     fetch(`/remove-movie`, {
-       method: 'POST',
-       mode: 'cors',
-       headers: {
-         'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: user.email,
-          id,
-          from: 'like'
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-          console.log(data);
-          return data;
-      })
-      .then(data => setLikedMovies(data.liked))
-      .catch((err) => console.log(err))
+        e.preventDefault();
+        const newLikedList = likedMovies.filter(movie => movie.id !== id);
+        console.log(newLikedList);
+        setLikedMovies(newLikedList);
+        fetch(`/removeMovie`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: user.email,
+                id,
+                likedMovies: newLikedList
+            })
+        }).catch((err) => console.log(err))
     }
 
     return (

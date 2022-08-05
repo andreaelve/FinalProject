@@ -14,9 +14,10 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const info = useRef(null);
   const infoContent = useRef(null);
   const image = useRef(null);
+  console.log('home', likedMovies);
 
-  useEffect(()=>{
-    if (!localStorage.getItem("user")) {
+  useEffect(() => {
+    console.log('mail', user);
       fetch('/register', {  
         method: 'POST', 
         mode: 'cors', 
@@ -28,11 +29,8 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
         }) 
       })
       .then(res => res.json())
-      .then(() => console.log(user.email))
       .catch(error => console.log(error));
-      localStorage.setItem("user",JSON.stringify(user.email));
-    }
-  },[])
+  }, [])
   
   // TODO: Fix slow fetching
   useEffect(() => {
@@ -44,10 +42,9 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
             if(!likedMovies.find(movie => movie.id === el.id)){
               return el;
           }}
-          
         });
         setMovies(nope.filter(el => el !== undefined));});
-  }, [likedMovies]);
+  }, [likedMovies, dislikedMovies, page]);
 
   // TODO: Find a better way of handling this:
   useEffect(() => {
@@ -57,7 +54,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
       setPage(newPage);
     }
     setMovie(movies[counter]);
-  }, [movies, counter])
+  }, [movies, counter, page])
 
   useEffect(() => {
     const fetchUrl = (category === null) 
@@ -71,12 +68,13 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
           if(!dislikedMovies.find(movie => movie.id === el.id)){
             if(!likedMovies.find(movie => movie.id === el.id)){
               return el;
-          }}
+          }
+        }
           
         });
         setMovies(nope.filter(el => el !== undefined));
       });
-  }, [category, page]);
+  }, [category, page, dislikedMovies, likedMovies]);
 
   // TODO: Make component
   const Movie = () => {
@@ -91,7 +89,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
       <div className="movie-card">
         <div className="movie-card_main">
           <div className="card-img" ref={image} onClick={(e) => visibilityChange(e)} 
-            style={{backgroundImage: 'linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url('+ `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+')'}}>
+            style={{backgroundImage: `linear-gradient(to bottom, rgb(245 246 252 / 0%), rgb(0 0 0 / 82%)), url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`}}>
             <div className="button-container">
               <ButtonSection 
                 counter={counter} 
@@ -109,7 +107,7 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
             <h2 className="movie-title">{movie.title}</h2>
             <span className="movie-releasedate">Release Date: {movie.release_date}</span>
             <p>{movie.overview}</p>
-            <p className="movie-rating">{movie.vote_average}/10<img className="star-icon" src={star}/></p>
+            <p className="movie-rating">{movie.vote_average}/10<img alt="star icon" className="star-icon" src={star}/></p>
           </div>
         </div>
       </div>

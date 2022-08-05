@@ -12,7 +12,6 @@ import Match from "./pages/Match";
 import './style.css';
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENTID;
-console.log(domain, clientId);
 
 export default function App() {
   const { isAuthenticated, user } = useAuth0();

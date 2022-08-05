@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import MovieCard from '../components/MovieCard';
+import { useEffect } from 'react';
 
 const LikedMovies = ({ likedMovies, setLikedMovies }) => {
+  useEffect(() => {
+    console.log(likedMovies);
+  }, [likedMovies])
   // TODO: Delete list button
   if(likedMovies.length === 0){
     return (
@@ -14,14 +18,14 @@ const LikedMovies = ({ likedMovies, setLikedMovies }) => {
           </Link>
         </div>
       </section>
-      )
+    )
   }
   
   return (
     <section className="liked-movies_section">
       <h1 className="liked-movies_heading">My Movies</h1>
       <div className="liked-movies_list">
-      {likedMovies.map(el => <MovieCard key={el.id} movie={el} setLikedMovies={setLikedMovies} />)}
+      {likedMovies.map(el => <MovieCard key={el.id} movie={el} setLikedMovies={setLikedMovies} likedMovies={likedMovies}/>)}
       </div>
     </section>
   );
