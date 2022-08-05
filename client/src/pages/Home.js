@@ -14,10 +14,8 @@ const Home = ({ dislikedMovies,  setDislikedMovies, likedMovies,  setLikedMovies
   const info = useRef(null);
   const infoContent = useRef(null);
   const image = useRef(null);
-  console.log('home', likedMovies);
 
   useEffect(() => {
-    console.log('mail', user);
       fetch('/register', {  
         method: 'POST', 
         mode: 'cors', 

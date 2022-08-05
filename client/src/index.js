@@ -17,9 +17,13 @@ export default function App() {
   const { isAuthenticated, user } = useAuth0();
   const [ dislikedMovies,  setDislikedMovies ] = useState([]);
   const [ likedMovies,  setLikedMovies ] = useState([]);
+  // loadingLikedMovies={loadingFetchedMovies}
+  const [ loading, setLoading ] = useState([false]);
 
   useEffect(() => {
     if(isAuthenticated){
+      console.log('fetch');
+      setLoading(true);
       fetch('/storedLists', {  
         method: 'POST', 
         mode: 'cors',
@@ -35,6 +39,7 @@ export default function App() {
         setLikedMovies([...data.liked_movies])
         setDislikedMovies([...data.disliked_movies])
       })
+      .then(() => setLoading(false));
     }
   }, [user])
 
@@ -55,7 +60,10 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="match" element={<Match likedMovies={likedMovies} />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="likedmovies" element={<LikedMovies likedMovies={likedMovies} setLikedMovies={setLikedMovies} />} />
+          <Route path="likedmovies" element={<LikedMovies 
+            likedMovies={likedMovies} 
+            setLikedMovies={setLikedMovies}
+            loading={loading} />} />
         </Route>
       </Routes>
     </BrowserRouter>

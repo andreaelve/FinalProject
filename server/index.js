@@ -72,7 +72,6 @@ app.post('/addMovie', async (req, res) => {
 
 // deletes one movie from the list
 app.post('/removeMovie', async (req, res) => {
-  console.log('removing');
   MongoClient.connect(url, async (err, db) => {
     if (err) throw err;
     try {
@@ -95,13 +94,16 @@ app.post('/removeMovie', async (req, res) => {
 
 // Registers a new user
 app.post('/register', async (req, res) => {
+  console.log('register');
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     const dbo = db.db("movies_db");
     const myquery = { email: req.body.email };
     dbo.collection("movie_collection").findOne(myquery, function (err, result) {
+      console.log(result);
       if (err) throw err;
       if (!result) {
+        console.log('making a new one')
         dbo.collection("movie_collection").insertOne({ email: req.body.email, liked_movies: [], disliked_movies: [] }, function (err, result) {
           console.log('tomt')
           if (err) throw err;

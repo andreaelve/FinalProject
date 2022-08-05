@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import MovieCard from '../components/MovieCard';
 import { useEffect } from 'react';
 
-const LikedMovies = ({ likedMovies, setLikedMovies }) => {
+const LikedMovies = ({ likedMovies, setLikedMovies, loading }) => {
   useEffect(() => {
     console.log(likedMovies);
   }, [likedMovies])
@@ -25,7 +25,12 @@ const LikedMovies = ({ likedMovies, setLikedMovies }) => {
     <section className="liked-movies_section">
       <h1 className="liked-movies_heading">My Movies</h1>
       <div className="liked-movies_list">
-      {likedMovies.map(el => <MovieCard key={el.id} movie={el} setLikedMovies={setLikedMovies} likedMovies={likedMovies}/>)}
+      {likedMovies.map(el => <MovieCard 
+        key={el.id} 
+        movie={el} 
+        setLikedMovies={setLikedMovies} 
+        likedMovies={likedMovies}
+        loading={loading} />)}
       </div>
     </section>
   );

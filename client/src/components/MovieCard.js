@@ -1,7 +1,15 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
 
-const MovieCard = ({ movie, setLikedMovies, likedMovies }) => {
+const MovieCard = ({ movie, setLikedMovies, likedMovies, loading }) => {
     const { user } = useAuth0();
+
+    useEffect(() => {
+        if(loading){
+            return '...Loading';
+        }
+    }, [loading]);
+
     const handleDelete = (e, id) =>{
         e.preventDefault();
         const newLikedList = likedMovies.filter(movie => movie.id !== id);
