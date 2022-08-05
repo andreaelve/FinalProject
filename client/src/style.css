@@ -31,13 +31,12 @@ body {
   font-size: 3em;
 }
 
-.login_btn {
+.login_btn, .return-btn {
   width: 10em;
   padding: 1em;
   border-radius: 10px;
   border: 1px solid #6E83CF;
   background-color: transparent;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.285);
   font-weight: bold;
   font-size: 1em;
 }
@@ -436,11 +435,11 @@ body {
 }
 
 .like_btn {
-  background-image: url('./components/greenHeart.png');
+  background-image: url('./assets/greenHeart.png');
   background-size: 100% auto;
 }
 .dislike_btn {
-  background-image: url('./components/remove.png');
+  background-image: url('./assets/remove.png');
   background-size: 100% auto;
 }
 
@@ -463,4 +462,14 @@ body {
 
 .profile_link {
   padding-top: 1em;
+}
+
+.no-liked-movies {
+  display: grid;
+  justify-items: center;
+  margin: 3em;
+}
+
+.mx2 {
+  margin: 2em 0;
 }

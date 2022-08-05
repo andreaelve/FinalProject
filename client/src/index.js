@@ -10,30 +10,36 @@ import Login from "./pages/Login";
 import { useEffect, useState } from "react";
 import Match from "./pages/Match";
 import './style.css';
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENTID;
 
 export default function App() {
   const { isAuthenticated, user } = useAuth0();
   const [ dislikedMovies,  setDislikedMovies ] = useState([]);
   const [ likedMovies,  setLikedMovies ] = useState([]);
+  // loadingLikedMovies={loadingFetchedMovies}
+  const [ loading, setLoading ] = useState([false]);
 
   useEffect(() => {
     if(isAuthenticated){
+      console.log('fetch');
+      setLoading(true);
       fetch('/storedLists', {  
         method: 'POST', 
-        // mode: 'cors', 
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
           email: user.email,
-        }) 
+        })
       })
       .then(res => res.json())
       .then(data => {
-        console.log('igjen')
         setLikedMovies([...data.liked_movies])
         setDislikedMovies([...data.disliked_movies])
       })
+      .then(() => setLoading(false));
     }
   }, [user])
 
@@ -54,7 +60,10 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="match" element={<Match likedMovies={likedMovies} />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="likedmovies" element={<LikedMovies likedMovies={likedMovies} setLikedMovies={setLikedMovies} />} />
+          <Route path="likedmovies" element={<LikedMovies 
+            likedMovies={likedMovies} 
+            setLikedMovies={setLikedMovies}
+            loading={loading} />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -64,11 +73,10 @@ export default function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Auth0Provider
-    // Hardcoding it for now
-      domain="dev-3g7shhdy.us.auth0.com"
-      clientId="7TetmI8GQhtDruSdI5ymkH4aXiLcxaOz"
-      redirectUri={window.location.origin}
-    >
+    domain={domain}
+    clientId={clientId}
+    redirectUri={window.location.origin}
+  >
       <App />
-    </Auth0Provider>
+  </Auth0Provider>
 );

@@ -2,9 +2,6 @@ import { useRef } from "react";
 import { useLinkClickHandler } from "react-router-dom";
 
 const Match = ({ likedMovies }) => { 
-  // andreaelvegard@gmail.com
-  // nikola.lukic@appliedtechnology.se
-  // morvaridmahmoudi@gmail.com
   const search = useRef(null);
   const matches = useRef(null);
   const matchList = [];
@@ -23,7 +20,6 @@ const Match = ({ likedMovies }) => {
   const handleSubmit = (e) => {
     matches.current.innerHTML = '';
     e.preventDefault();
-    // E-mail of user to serach for
     const searchWord = search.current.value;
     // Fetching to the endpoint that responds with all information about a user
     fetch('/storedLists', {  
@@ -50,7 +46,6 @@ const Match = ({ likedMovies }) => {
           }
         });
       }));
-      console.log(matchList)
   }
 
   return (
