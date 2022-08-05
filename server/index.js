@@ -72,6 +72,7 @@ app.post('/addMovie', async (req, res) => {
 
 // deletes one movie from the list
 app.post('/removeMovie', async (req, res) => {
+  console.log('remove')
   MongoClient.connect(url, async (err, db) => {
     if (err) throw err;
     try {
